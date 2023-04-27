@@ -4,6 +4,28 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+const likeGlyph = document.querySelector('.like-glyph');
+const fullHeart = document.querySelector('.like-glyph.activated-heart');
+const errorModal = document.querySelector('#modal');
+const errorMessage = document.querySelector('#modal-message');
+
+errorModal.classList.add('hidden');
+
+likeGlyph.addEventListener('click', () => {
+  mimicServerCall()
+    .then(() => {
+      fullHeart.classList.add('activated-heart');
+      likeGlyph.replaceWith(fullHeart);
+    })
+    .catch(() => {
+      errorMessage.textContent = 'Server Error! Please try again.';
+      errorModal.classList.remove('hidden');
+      setTimeout(() => {
+        errorModal.classList.add('hidden');
+      }, 3000);
+    });
+});
+
 
 
 
